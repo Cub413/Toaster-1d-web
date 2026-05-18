@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toaster 1D</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #1a1a2a, #0b0b10);
+  color: white;
+}
+
+/* HERO HEADER */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.appHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.appHeader img {
+  width: 110px;
+  height: 110px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(255,122,24,0.25);
+}
+
+.appHeader h1 {
+  font-size: 48px;
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  max-width: 650px;
+  opacity: 0.8;
+  font-size: 18px;
+}
+
+/* BUTTONS */
+.buttons {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+}
+
+.primary {
+  background: linear-gradient(90deg, #ff7a18, #ffb347);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 12px 18px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+}
+
+/* SECTION */
+.section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+  color: #ffb347;
+}
+
+/* SCREENS */
+.screens {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.screen {
+  height: 160px;
+  background: #151522;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+}
+
+/* DOWNLOAD */
+.download {
+  text-align: center;
+  padding: 90px 20px;
+}
+
+.download p {
+  opacity: 0.7;
+  margin-bottom: 18px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 30px;
+  opacity: 0.5;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="appHeader">
+    <img src="archivos/icon.png" alt="Toaster 1D Icon">
+    <h1>Toaster 1D</h1>
+  </div>
+
+  <p>
+    Un entorno 3D ligero y creativo para construir, animar y experimentar en tiempo real.
+    Diseñado para velocidad, simplicidad y flujo .
+  </p>
+
+  <div class="buttons">
+    <a class="primary" href="#download">Descargar</a>
+    <button class="secondary" onclick="document.getElementById('screens').scrollIntoView({behavior:'smooth'})">
+      Ver capturas
+    </button>
+  </div>
+
+</section>
+
+<!-- CAPTURAS -->
+<section id="screens" class="section">
+  <h2>Capturas</h2>
+
+<div class="screens">
+  
+  <img src="archivos/1.png" class="screen">
+  <img src="archivos/2.png" class="screen">
+  <img src="archivos/3.png" class="screen">
+  <img src="archivos/4.png" class="screen">
+  <img src="archivos/5.png" class="screen">
+  
+</div>
+</section>
+
+<!-- DESCRIPCIÓN -->
+<section class="section">
+  <h2>Descripción</h2>
+
+  <p style="max-width:700px;margin:auto;opacity:0.8;line-height:1.6;">
+    Toaster 1D es una app enfocada en creación 3D rápida. Permite modelar, importar archivos GLTF,
+    aplicar materiales y experimentar con escenas en tiempo real sin interfaces pesadas.
+  </p>
+</section>
+
+<!-- DESCARGA -->
+<section id="download" class="download">
+  <h2>Descarga</h2>
+  <p>Obtén la última versión de Toaster 1D</p>
+
+  <a class="primary" href="archivos/toaster1d.apk" target="_blank">
+    Descargar ahora
+  </a>
+</section>
+
+<footer>
+  © 2026 Toaster 1D
+</footer>
+
+</body>
+</html>
