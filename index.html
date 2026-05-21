@@ -6,199 +6,605 @@
 <title>Toaster 1D</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui, Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-body {
-  background: radial-gradient(circle at top, #1a1a2a, #0b0b10);
-  color: white;
+body{
+    background:#000;
+    color:white;
+    overflow-x:hidden;
 }
 
-/* HERO HEADER */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 40px 20px;
+/* fondo */
+.bg{
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top,
+    rgba(255,120,0,.14),
+    transparent 40%),
+
+    radial-gradient(circle at bottom,
+    rgba(255,60,0,.08),
+    transparent 40%),
+
+    #000;
+
+    z-index:-2;
 }
 
-.appHeader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 20px;
+/* partículas */
+.particles{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    z-index:-1;
 }
 
-.appHeader img {
-  width: 110px;
-  height: 110px;
-  border-radius: 24px;
-  box-shadow: 0 10px 40px rgba(255,122,24,0.25);
+.particle{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.4;
+    animation:float linear infinite;
 }
 
-.appHeader h1 {
-  font-size: 48px;
-  background: linear-gradient(90deg, #ff7a18, #ffb347);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-100vh);
+    }
 }
 
-.hero p {
-  max-width: 650px;
-  opacity: 0.8;
-  font-size: 18px;
+/* header */
+header{
+    padding-top:50px;
+    text-align:center;
 }
 
-/* BUTTONS */
-.buttons {
-  margin-top: 22px;
-  display: flex;
-  gap: 12px;
+.logo{
+    width:340px;
+    max-width:90%;
+    filter:
+    drop-shadow(0 0 20px rgba(255,120,0,.4))
+    drop-shadow(0 0 80px rgba(255,80,0,.15));
+
+    animation:logoFloat 4s ease-in-out infinite;
 }
 
-.primary {
-  background: linear-gradient(90deg, #ff7a18, #ffb347);
-  border: none;
-  padding: 12px 18px;
-  border-radius: 12px;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-6px);
+    }
 }
 
-.secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.25);
-  padding: 12px 18px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
+/* hero */
+.hero{
+    width:100%;
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
 }
 
-/* SECTION */
-.section {
-  padding: 80px 20px;
-  text-align: center;
+.card{
+    width:100%;
+    max-width:1100px;
+
+    background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.05),
+        rgba(255,255,255,.02)
+    );
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+    0 0 60px rgba(255,100,0,.08),
+    0 20px 80px rgba(0,0,0,.9);
 }
 
-.section h2 {
-  font-size: 30px;
-  margin-bottom: 25px;
-  color: #ffb347;
+/* preview */
+.preview{
+    height:420px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(255,120,0,.12),
+    transparent 65%);
 }
 
-/* SCREENS */
-.screens {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-  max-width: 900px;
-  margin: auto;
+.cube{
+    width:190px;
+    height:190px;
+    position:relative;
+    transform-style:preserve-3d;
+
+    animation:rotate 12s linear infinite;
 }
 
-.screen {
-  height: 160px;
-  background: #151522;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.7;
+.face{
+    position:absolute;
+    width:190px;
+    height:190px;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(255,120,0,.08),
+        rgba(255,60,0,.03)
+    );
+
+    box-shadow:
+    inset 0 0 40px rgba(255,120,0,.18),
+    0 0 25px rgba(255,120,0,.08);
 }
 
-/* DOWNLOAD */
-.download {
-  text-align: center;
-  padding: 90px 20px;
+.front{transform:translateZ(95px);}
+.back{transform:rotateY(180deg) translateZ(95px);}
+.left{transform:rotateY(-90deg) translateZ(95px);}
+.right{transform:rotateY(90deg) translateZ(95px);}
+.top{transform:rotateX(90deg) translateZ(95px);}
+.bottom{transform:rotateX(-90deg) translateZ(95px);}
+
+@keyframes rotate{
+    from{
+        transform:rotateX(-18deg) rotateY(0deg);
+    }
+    to{
+        transform:rotateX(-18deg) rotateY(360deg);
+    }
 }
 
-.download p {
-  opacity: 0.7;
-  margin-bottom: 18px;
+/* contenido */
+.content{
+    padding:55px;
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 30px;
-  opacity: 0.5;
-  border-top: 1px solid rgba(255,255,255,0.06);
+.tag{
+    display:inline-block;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:rgba(255,120,0,.12);
+
+    border:1px solid rgba(255,120,0,.25);
+
+    color:#ffb27d;
+
+    font-size:13px;
+
+    letter-spacing:1px;
+
+    margin-bottom:24px;
+}
+
+h1{
+    font-size:60px;
+    line-height:1;
+    margin-bottom:25px;
+    font-weight:900;
+}
+
+.desc{
+    color:#aaa;
+    line-height:1.8;
+    font-size:18px;
+    max-width:760px;
+    margin-bottom:45px;
+}
+
+/* botones */
+.buttons{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:18px 34px;
+    border-radius:18px;
+    text-decoration:none;
+    transition:.3s;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.primary{
+    background:
+    linear-gradient(
+        135deg,
+        #ff7b00,
+        #ff3c00
+    );
+
+    color:white;
+
+    box-shadow:
+    0 0 35px rgba(255,120,0,.3);
+}
+
+.primary:hover{
+    transform:translateY(-5px) scale(1.03);
+
+    box-shadow:
+    0 0 60px rgba(255,120,0,.5);
+}
+
+.secondary{
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    color:#ddd;
+}
+
+.secondary:hover{
+    background:rgba(255,255,255,.08);
+}
+
+/* specs */
+.specs{
+    margin-top:55px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:22px;
+}
+
+.spec{
+    padding:28px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.spec h3{
+    color:#ff9f5a;
+    margin-bottom:12px;
+    font-size:15px;
+}
+
+.spec p{
+    color:#999;
+    line-height:1.7;
+}
+
+/* screenshots */
+.screenshots{
+    max-width:1400px;
+    margin:auto;
+    padding:40px 20px 100px;
+}
+
+.section-title{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:50px;
+    font-weight:900;
+}
+
+.shots-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(420px,1fr));
+
+    gap:30px;
+}
+
+.shot{
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,.05),
+        rgba(255,255,255,.02)
+    );
+
+    border:1px solid rgba(255,255,255,.06);
+
+    aspect-ratio:16/9;
+
+    transition:.45s;
+
+    box-shadow:
+    0 0 40px rgba(255,120,0,.06);
+
+    backdrop-filter:blur(10px);
+}
+
+.shot::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+        180deg,
+        transparent,
+        rgba(0,0,0,.2)
+    );
+
+    z-index:1;
+
+    pointer-events:none;
+}
+
+.shot:hover{
+    transform:
+    translateY(-10px)
+    scale(1.02);
+
+    box-shadow:
+    0 0 70px rgba(255,120,0,.16);
+}
+
+.shot img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:1s;
+}
+
+.shot:hover img{
+    transform:scale(1.05);
+}
+
+/* móvil */
+@media(max-width:900px){
+
+    .shots-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    .section-title{
+        font-size:32px;
+    }
+
+    .shot{
+        border-radius:22px;
+    }
+
+}
+/* footer */
+footer{
+    text-align:center;
+    padding:50px 20px;
+    color:#555;
+    font-size:14px;
+}
+
+@media(max-width:700px){
+
+    h1{
+        font-size:42px;
+    }
+
+    .content{
+        padding:35px;
+    }
+
+    .preview{
+        height:320px;
+    }
+
+    .cube{
+        transform:scale(.8);
+    }
+
+    .section-title{
+        font-size:32px;
+    }
+
 }
 </style>
 </head>
-
 <body>
 
-<!-- HERO -->
+<div class="bg"></div>
+
+<div class="particles" id="particles"></div>
+
+<header>
+    <img class="logo" src="archivos/text.png">
+</header>
+
 <section class="hero">
 
-  <div class="appHeader">
-    <img src="archivos/icon.png" alt="Toaster 1D Icon">
-    <h1>Toaster 1D</h1>
-  </div>
+    <div class="card">
 
-  <p>
-    Un entorno 3D ligero y creativo para construir, animar y experimentar en tiempo real.
-    Diseñado para velocidad, simplicidad y flujo .
-  </p>
+        <div class="preview">
 
-  <div class="buttons">
-    <a class="primary" href="#download">Descargar</a>
-    <button class="secondary" onclick="document.getElementById('screens').scrollIntoView({behavior:'smooth'})">
-      Ver capturas
-    </button>
-  </div>
+            <div class="cube">
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face left"></div>
+                <div class="face right"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+            </div>
+
+        </div>
+
+        <div class="content">
+
+            <div class="tag">
+                SOFTWARE DE ANIMACIÓN 3D
+            </div>
+
+            <h1>
+                Toaster 1D
+            </h1>
+
+            <p class="desc">
+                Una plataforma avanzada de animación y renderizado 3D diseñada para crear escenas cinematográficas, efectos visuales y proyectos con calidad profesional directamente desde tu dispositivo.
+            </p>
+
+            <div class="buttons">
+
+            <!-- BOTÓN DESCARGA -->
+
+<a
+    href="archivos/toaster1d.apk"
+    target="_blank"
+    class="btn primary"
+>
+    Descargar APK
+</a>
+
+                <a href="#screenshots" class="btn secondary">
+                    Ver capturas
+                </a>
+
+            </div>
+
+            <div class="specs">
+
+                <div class="spec">
+                    <h3>Viewport Cinemático</h3>
+                    <p>
+                        Iluminación dinámica, sombras y render en tiempo real.
+                    </p>
+                </div>
+
+                <div class="spec">
+                    <h3>Animación Profesional</h3>
+                    <p>
+                        Timeline avanzada, cámaras y herramientas modernas.
+                    </p>
+                </div>
+
+                <div class="spec">
+                    <h3>Motor 3D Optimizado</h3>
+                    <p>
+                        Rendimiento fluido incluso en escenas complejas.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
 <!-- CAPTURAS -->
-<section id="screens" class="section">
-  <h2>Capturas</h2>
 
-<div class="screens">
-  
-  <img src="archivos/1.png" class="screen">
-  <img src="archivos/2.png" class="screen">
-  <img src="archivos/3.png" class="screen">
-  <img src="archivos/4.png" class="screen">
-  <img src="archivos/5.png" class="screen">
-  
-</div>
-</section>
+<section
+    class="screenshots"
+    id="screenshots"
+>
 
-<!-- DESCRIPCIÓN -->
-<section class="section">
-  <h2>Descripción</h2>
+    <h2 class="section-title">
+        Capturas de la App
+    </h2>
 
-  <p style="max-width:700px;margin:auto;opacity:0.8;line-height:1.6;">
-    Toaster 1D es una app enfocada en creación 3D rápida. Permite modelar, importar archivos GLTF,
-    aplicar materiales y experimentar con escenas en tiempo real sin interfaces pesadas.
-  </p>
-</section>
+    <div class="shots-grid">
 
-<!-- DESCARGA -->
-<section id="download" class="download">
-  <h2>Descarga</h2>
-  <p>Obtén la última versión de Toaster 1D</p>
+        <div class="shot">
+            <img src="archivos/1.png">
+        </div>
 
-  <a class="primary" href="archivos/toaster1d.apk" target="_blank">
-    Descargar ahora
-  </a>
+        <div class="shot">
+            <img src="archivos/2.png">
+        </div>
+
+        <div class="shot">
+            <img src="archivos/3.png">
+        </div>
+
+        <div class="shot">
+            <img src="archivos/4.png">
+        </div>
+
+        <div class="shot">
+            <img src="archivos/5.png">
+        </div>
+
+    </div>
+
 </section>
 
 <footer>
-  © 2026 Toaster 1D
+    © 2026 • Toaster 1D
 </footer>
+
+<script>
+/* PARTÍCULAS OPTIMIZADAS */
+
+const particles =
+  document.getElementById("particles");
+
+/* menos partículas */
+const PARTICLE_COUNT = 45;
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  
+  const p =
+    document.createElement("div");
+  
+  p.className = "particle";
+  
+  p.style.left =
+    Math.random() * 100 + "%";
+  
+  p.style.animationDuration =
+    (16 + Math.random() * 20) + "s";
+  
+  p.style.opacity =
+    (0.15 + Math.random() * 0.3);
+  
+  particles.appendChild(p);
+}
+</script>
 
 </body>
 </html>
